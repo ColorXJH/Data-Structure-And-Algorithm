@@ -1,5 +1,7 @@
 package com.master.chapter009;
 
+import java.util.Arrays;
+
 /**
  * @ClassName: RedixSortingTest
  * @Package: com.master.chapter009
@@ -9,6 +11,46 @@ package com.master.chapter009;
  */
 public class RedixSortingTest {
     public static void main(String[] args) {
+        int[] array={53,3,542,748,14,214};
+        radixSort(array);//[542,53,3,14,214,748]
+    }
+
+    //基数排序方法
+    public static void radixSort(int[] array){
+       //第一轮排序（针对每个元素的个位经行排序处理）
+
+
+       //定义一个二维数组，表示10个桶，每个桶就是一个一维数组
+       // 二维数组包含10个一维数组，为了防止在放入数的时候，数据溢出，则每个一维数组（桶），大小定义伟array.length
+       //基数排序是使用空间换时间的经典算法
+       int[][]bucket=new int[10][array.length];
+
+       //为了记录每个桶中实际存放了多少数据，我们定义一个一维数组来记录各个桶每次放入的数据个数
+            //buckerElementCounts[0]记录的就是bucker[0]桶的放入数据的个数
+        int[] buckerElementCounts=new int[10];
+
+        for(int j=0;j<array.length;j++){
+            //取出每个元素的个位
+            int digitOfElement=array[j]%10;
+            //将当前的数放入对应的桶中的对应的位置
+            bucket[digitOfElement][buckerElementCounts[j]]=array[j];
+            //记录桶中元素的个数+1;
+            buckerElementCounts[digitOfElement]++;
+        }
+        //按照这个桶的顺序（一维数组下标依次去除数据，放入原来数据组）
+        int index=0;
+        //遍历每一个桶，并将桶中的数据放入原数组
+        for(int k=0;k<buckerElementCounts.length;k++){
+            //如果桶中有数据，我们才放入到原数组
+            if(buckerElementCounts[k]!=0){
+                //循环该桶（第k个桶，即第k个一维数组），放入
+                for(int l=0;l<buckerElementCounts[k];l++){
+                    //取出元素，放入到array
+                    array[index]=bucket[k][l];
+                }
+            }
+        }
+        System.out.println("第一轮，对个位数的排序处理："+ Arrays.toString(array));
 
     }
 }
@@ -30,3 +72,6 @@ public class RedixSortingTest {
         //第二轮排序，将每个元素的十位放在桶中排序，依次取出数据=》【3 14 214 542 748 53】
         //第三轮。。。最后得出数据=》【3 14 53 214 748】
         //多少论取决于最大数的位数
+
+
+//代码实现见main方法
