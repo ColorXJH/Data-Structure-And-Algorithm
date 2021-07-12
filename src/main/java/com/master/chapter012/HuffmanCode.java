@@ -20,6 +20,9 @@ public class HuffmanCode {
         //getCodes(root,"",builder);
         Map<Byte,String> huffmanCodess=getCodes(root);
         System.out.println("生成的赫夫曼编码表为 "+huffmanCodess);
+        byte[] huffmanBytes=zip(contextBytes,huffmanCodess);
+        System.out.println("赫夫曼编码后生成的字节数组--------------------：");
+        System.out.println(Arrays.toString(huffmanBytes));
     }
     /**
      * description:
@@ -123,6 +126,52 @@ public class HuffmanCode {
                 huffmanCodes.put(node.data,builder1.toString());
             }
         }
+
+    }
+
+
+    //编写一个方法，将字符串对应的byte【】数组，通过生成的赫夫曼编码表返回一个赫夫曼编码压缩后的字节数组
+    /**
+     * 功能描述:
+     * @param: bytes 原始的字符串对应的字节数组
+     * @param: huffmanCodes 生成的赫夫曼编码map
+     * @Return: byte[] 返回赫夫曼编码处理后的byte[]数组
+     * @Author: ColorXJH
+     * @Date: 2021/7/12 18:08
+     */
+    private static  byte[] zip(byte[]bytes,Map<Byte,String>huffmanCodes){
+        //1:利用huffmanCodes将bytes转成赫夫曼编码对应的字符串
+        StringBuilder builder=new StringBuilder();
+        //遍历bytes数组
+        for(byte b:bytes){
+            builder.append(huffmanCodes.get(b));
+        }
+        System.out.println("赫夫曼编码后的字节数组的二进制字符串形式如下：");
+        System.out.println(builder.toString());
+        //将‘11110010101011101010101...’转成byte[]
+        //统计返回的赫夫曼编码长度有多大
+        //一句话：（builder.length()+7）/8
+        int len;
+        if(builder.length()%8==0){
+            len=builder.length()/8;
+        }else{
+            len=builder.length()/8+1;
+        }
+        //创建一个存储压缩后的byte[]
+        byte[] huffmanCodeBytes=new byte[len];
+        int index=0;//记录第几个byte
+        for(int i=0;i<builder.length();i+=8){//步长为8，每8为一个字节数组
+            String strByte;
+            if(i+8>builder.length()){//不够8位
+                strByte=builder.substring(i);
+            }else{
+                strByte=builder.substring(i,i+8);
+            }
+            //将strByte转换成byte【】，放入到by
+            huffmanCodeBytes[index]=(byte)Integer.parseInt(strByte,2);
+            index++;
+        }
+        return  huffmanCodeBytes;
 
     }
 
