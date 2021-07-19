@@ -25,8 +25,17 @@ public class BinarySearchTreeTest {
         //System.out.println("删除子节点1后的遍历：");
         //tree.infixOrder();
         //删除有两颗子树的节点
+        tree.deleteNode(2);
+        tree.deleteNode(5);
+        tree.deleteNode(9);
+        tree.deleteNode(12);
+        tree.deleteNode(7);
+        tree.deleteNode(3);
         tree.deleteNode(10);
-        System.out.println("删除子节点10后的遍历：");
+        tree.deleteNode(1);
+
+        System.out.println("删除子节点后的遍历：");
+        System.out.println("root="+tree.getRoot());
         tree.infixOrder();
     }
 }
@@ -58,6 +67,11 @@ public class BinarySearchTreeTest {
 //创建二叉排序树
 class BinarySortTree{
     private Node root;
+
+    public Node getRoot() {
+        return root;
+    }
+
     //添加节点的方法
     public void add(Node node){
         if(root==null){
@@ -123,10 +137,13 @@ class BinarySortTree{
             //1:需要先去找到要删除的节点
             Node targetNode=search(value);
             //如果没有找到要删除的节点，则返回
-            if(targetNode==null){return;}
+            if(targetNode==null){
+                return;
+            }
             //如果我们发现当前这颗二叉排序树只有一个节点
             if(root.left==null&&root.right==null){
                 root=null;
+                return;
             }
             //去找到targetNo的父节点
             Node parent=searchParent(value);
@@ -143,19 +160,28 @@ class BinarySortTree{
                 targetNode.value=minValue;
                 //也可以不用上面的思路，在左子树中找最大的
             }else{//删除只有一颗子树的节点
-                //如果要删除的节点有左子节点
                 if(targetNode.left!=null){
-                    //如果targetNode是parent的左/右子节点
-                    if(parent.left.value==value){
-                        parent.left=targetNode.left;
+                    //如果parent节点为空则应该直接让root节点指向该节点的子节点。这里需要先判断一下找个节点是否为空
+                    if(parent!=null){
+                        //如果要删除的节点有左子节点
+                        //如果targetNode是parent的左/右子节点
+                        if(parent.left.value==value){
+                            parent.left=targetNode.left;
+                        }else{
+                            parent.right=targetNode.left;
+                        }
                     }else{
-                        parent.right=targetNode.left;
+                       root=targetNode.left;
                     }
                 }else{//要删除的节点有右子节点
-                   if(parent.left.value==value){
-                       parent.left=targetNode.right;
+                   if(parent!=null){
+                       if(parent.left.value==value){
+                           parent.left=targetNode.right;
+                       }else{
+                           parent.right=targetNode.right;
+                       }
                    }else{
-                       parent.right=targetNode.right;
+                     root=targetNode.right;
                    }
                 }
             }
