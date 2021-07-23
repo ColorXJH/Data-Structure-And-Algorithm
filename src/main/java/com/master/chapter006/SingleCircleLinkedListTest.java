@@ -1,7 +1,5 @@
 package com.master.chapter006;
 
-import org.omg.Messaging.SyncScopeHelper;
-
 /**
  * ClassName: SingleCircleLinkedListTest
  * Package: com.master.chapter006

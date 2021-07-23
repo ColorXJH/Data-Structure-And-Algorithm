@@ -1,7 +1,5 @@
 package com.master.chapter003;
 
-import org.omg.Messaging.SyncScopeHelper;
-
 import java.util.Arrays;
 import java.util.Scanner;
 

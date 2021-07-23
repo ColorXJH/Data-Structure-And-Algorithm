@@ -8,7 +8,7 @@ package com.master.chapter016;
  */
 public class GraphTest {
     public static void main(String[] args) {
-
+        System.out.println("hello");
     }
 }
 //为什么要有图
@@ -18,7 +18,7 @@ public class GraphTest {
 
 //图的基本介绍
     //图是一种数据结构，其中节点可以具有0个或多个相邻元素，两个节点之间的连接称作边，节点也可以称为顶点。如图：
-        //              B
+        //
         //                        C
         //      A
         //                    E
