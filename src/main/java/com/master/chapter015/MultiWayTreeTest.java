@@ -8,7 +8,7 @@ package com.master.chapter015;
  */
 public class MultiWayTreeTest {
     public static void main(String[] args) {
-
+        //多叉树的实现自己百度，一般不要求
     }
 }
 
