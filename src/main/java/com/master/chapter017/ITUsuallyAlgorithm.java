@@ -74,3 +74,6 @@ class BinarySearchNoRecursion{
         //return T
         //其中|p|表示问题p的规模，n0为一阈值，表示当问题p的规模不超过n0时，问题已经容易直接解除，不必要再继续分解，ADHOC(P)是该分治法中的基本子算法
         //merge是分治法中的合并子算法 ，用于将问p的所有子问题p1,p2,p3...  pk的相应解页,y2,y3...yk合并为p的解
+
+        //代码演示
+        //test  use github token instead of username/password
