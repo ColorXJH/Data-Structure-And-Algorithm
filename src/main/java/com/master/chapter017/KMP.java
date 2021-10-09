@@ -1,5 +1,6 @@
 package com.master.chapter017;
 
+
 /**
  * @ClassName: KMP算法
  * @Package: com.master.chapter017
@@ -27,7 +28,7 @@ public class KMP {
             int index=BLMatch(str1,str2);
             System.out.println("index="+index);
         }
-        //暴力匹配算法实现
+
         public static int  BLMatch(String str1,String str2){
             char[]s1=str1.toCharArray();
             char[]s2=str2.toCharArray();
@@ -65,3 +66,24 @@ public class KMP {
             //1:先得到子串的部分匹配表
             //2:使用部分匹配表完成kmp匹配，移动的位数=已匹配的字符数-对应的部分匹配值（部分匹配表中位置）
 
+    class KmpAlgorithm{
+        public static void main(String[] args) {
+            String str1="BBC ABCDAB ABCDABCDABDE";
+            String str2="ABCDABD";
+            int[]next=kmpNext("AA");//[0,1]
+            System.out.println();
+        }
+
+        //获取到一个字符串（子串）的部分匹配值表
+        public static int[] kmpNext(String dest){
+            //创建一个next数组保存部分匹配值
+            int[] next=new int[dest.length()];
+            next[0]=0;//如果字符串长度为1，部分匹配值就是0
+            for(int i=1,j=0; i<dest.length();i++){
+                //当dest.charAt(i)==dest.charAt(j)条件满足时，部分匹配值就+1
+                if(dest.charAt(i)==dest.charAt(j)){j++;}
+                next[i]=j;
+            }
+            return next;
+        }
+    }
